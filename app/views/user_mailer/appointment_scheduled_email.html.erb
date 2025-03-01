@@ -1,0 +1,4 @@
+<h1>Appointment Scheduled</h1>
+<p>Hello <%= @patient.name %>,</p>
+<p>Your appointment with Dr. <%= @doctor.name %> has been scheduled.</p>
+<p>Appointment Date: <%= @appointment.date.strftime("%A, %d %B %Y at %I:%M %p") %></p>

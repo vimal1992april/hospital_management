@@ -1,6 +1,6 @@
 <h2>Add Patient</h2>
 
-<%= form_for @patient do |f| %>
+<%= form_for @patient, url: patients_path do |f| %>
   <div class="mb-3">
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>

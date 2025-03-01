@@ -2,7 +2,7 @@
 
 <% if @patient.photo.exists? %>
   <p>Profile Picture:</p>
-  <%= image_tag @patient.photo.url(:thumb), class: "rounded-circle" %>
+  <%= image_tag @patient.custom_photo_url(:thumb) %>
 <% end %>
 
 <h3>Appointments</h3>
@@ -23,4 +23,4 @@
   <% end %>
 </table>
 
-<%= link_to "New Appointment", new_patient_appointment_path(@patient), class: "btn btn-primary" %>
+<%= link_to "New Appointment", new_appointment_with_patient_path(@patient), class: "btn btn-primary" %>

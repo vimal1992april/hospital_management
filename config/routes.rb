@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users
   root "home#index"
-  resources :patients, only: [:index, :show, :new, :create]
-  resources :appointments, only: [:index, :new, :create, :destroy]
+  resources :patients
+  resources :appointments, only: [:index, :create, :destroy]
+  get 'appointments/new/:patient_id', to: 'appointments#new', as: 'new_appointment_with_patient'
+
   resource :profile, only: [:show, :update] # Single profile per user
 
 end

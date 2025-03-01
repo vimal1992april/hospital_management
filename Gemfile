@@ -80,3 +80,4 @@ gem 'factory_bot_rails', group: [:test]
 gem "sassc-rails"
 gem 'kaminari'
 gem 'paperclip'
+gem 'will_paginate'

@@ -3,9 +3,9 @@ class PatientsController < ApplicationController
   before_action :check_doctor!
 
   def index
-    
-    @patients = current_user.patients.reorder(nil).page(params[:page]).per(10)
-
+    per   = params[:limit].nil? ? 10 : params[:limit].to_i
+    page  = params[:page].nil? ? 1 : params[:page].to_i
+    @patients = User.where(role: "patient", :doctor_id => current_user.try(:id)).paginate(page: page, per_page: per)
   end
 
   def new
@@ -15,8 +15,9 @@ class PatientsController < ApplicationController
   def create
     @patient = current_user.patients.build(patient_params)
     @patient.role = "patient"
-
+    @patient.password = SecureRandom.alphanumeric(10)
     if @patient.save
+      UserMailer.patient_added_email(@patient).deliver_now
       redirect_to patients_path, notice: "Patient added successfully."
     else
       render :new
