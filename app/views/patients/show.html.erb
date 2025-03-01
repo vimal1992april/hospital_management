@@ -1,0 +1,26 @@
+<h2><%= @patient.name %>'s Profile</h2>
+
+<% if @patient.photo.exists? %>
+  <p>Profile Picture:</p>
+  <%= image_tag @patient.photo.url(:thumb), class: "rounded-circle" %>
+<% end %>
+
+<h3>Appointments</h3>
+<table class="table">
+  <tr>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+  <% @appointments.each do |appointment| %>
+    <tr>
+      <td><%= appointment.date.strftime("%B %d, %Y %H:%M") %></td>
+      <td><%= appointment.description %></td>
+      <td>
+        <%= link_to "Cancel", appointment_path(appointment), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure?" } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "New Appointment", new_patient_appointment_path(@patient), class: "btn btn-primary" %>

@@ -1,0 +1,8 @@
+<tr>
+  <td><%= patient.name %></td>
+  <td><%= patient.email %></td>
+  <td>
+    <%= link_to "View", user_path(patient), class: "btn btn-sm btn-primary" %>
+    <%= link_to "Remove", user_path(patient), method: :delete, class: "btn btn-sm btn-danger" %>
+  </td>
+</tr>

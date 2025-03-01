@@ -1,0 +1,22 @@
+<h2>My Profile</h2>
+
+<%= form_for @user, url: profile_path, method: :patch, html: { multipart: true } do |f| %>
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :photo, "Profile Picture" %>
+    <%= f.file_field :photo, class: "form-control" %>
+  </div>
+
+  <% if @user.photo.exists? %>
+    <p>Current Profile Photo:</p>
+	<%= image_tag @user.custom_photo_url(:thumb) %>
+  <% end %>
+
+  <div class="mt-3">
+    <%= f.submit "Update Profile", class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="col-md-6 col-lg-4">
+    <div class="card shadow">
+      <div class="card-header text-center">Resend Confirmation</div>
+      <div class="card-body">
+        <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name)) do |f| %>
+          <div class="mb-3">
+            <%= f.label :email, class: "form-label" %>
+            <%= f.email_field :email, class: "form-control", autofocus: true %>
+          </div>
+
+          <div class="d-grid">
+            <%= f.submit "Resend Confirmation", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

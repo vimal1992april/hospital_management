@@ -1,0 +1,62 @@
+<% if current_user.present? %>
+  <h2>Welcome, <%= current_user.name %></h2>
+<% else %>
+  <h2>Welcome, Guest</h2>
+<% end %>
+
+
+<% if current_user.doctor? %>
+  <h4>Your Patients</h4>
+  <ul>
+    <% @patients.each do |patient| %>
+      <li>
+        <%= link_to patient.name, patient_path(patient) %>  
+        (<%= link_to "Add Appointment", new_appointment_path(patient_id: patient.id) %>)
+      </li>
+    <% end %>
+  </ul>
+
+  <h4>Latest Appointments</h4>
+  <ul>
+    <% @appointments.each do |appointment| %>
+      <li>
+        <%= appointment.patient.name %> - <%= appointment.date.strftime("%B %d, %Y - %I:%M %p") %>  
+        (<%= link_to "Cancel", appointment_path(appointment), method: :delete, data: { confirm: "Are you sure?" } %>)
+      </li>
+    <% end %>
+  </ul>
+<% elsif current_user.patient? %>
+  <h4>Your Appointments</h4>
+  <ul>
+    <% @appointments.each do |appointment| %>
+      <li>
+        With Dr. <%= appointment.doctor.name %> - <%= appointment.date.strftime("%B %d, %Y - %I:%M %p") %>  
+        (<%= link_to "Cancel", appointment_path(appointment), method: :delete, data: { confirm: "Are you sure?" } %>)
+      </li>
+    <% end %>
+  </ul>
+<% elsif current_user.admin? %>
+  <h5>Doctors:</h5>
+  <ul>
+    <% @doctors.each do |doctor| %>
+      <li><%= doctor.name %> - <%= doctor.email %></li>
+    <% end %>
+  </ul>
+
+  <h5>Patients:</h5>
+  <ul>
+    <% @patients.each do |patient| %>
+      <li><%= patient.name %> - <%= patient.email %></li>
+    <% end %>
+  </ul>
+
+  <h5>Recent Appointments:</h5>
+  <ul>
+    <% @appointments.each do |appointment| %>
+      <li>
+        Dr. <%= appointment.doctor.name %> with <%= appointment.patient.name %> -  
+        <%= appointment.date.strftime("%B %d, %Y - %I:%M %p") %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

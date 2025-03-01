@@ -1,0 +1,24 @@
+<h2>My Patients</h2>
+
+<% if @patients.present? %>
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td><%= link_to patient.name, patient_path(patient) %></td>
+        <td><%= patient.email %></td>
+        <td><%= link_to "View", patient_path(patient), class: "btn btn-primary btn-sm" %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= paginate @patients %>
+<% else %>
+  <p>No patients found.</p>
+<% end %>
+
+<%= link_to "Add Patient", new_patient_path, class: "btn btn-success" %>
